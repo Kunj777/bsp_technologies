@@ -36,7 +36,7 @@ const AddTaskForm = () => {
     }
 
     if (size(task) > 56) {
-      setError("Max limit is 56 characters");
+      setError("Task Name should be less than 56 characters");
       return;
     }
 

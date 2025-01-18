@@ -47,17 +47,20 @@ const TaskItem = (props: Props) => {
       <div className={styles.card}>
         <div className={styles.cardInfo}>
           <div className={styles.task}>
-            <p className={styles.name}>Task Name :- </p>
+            <p className={styles.name}>Task Name </p>
+            <p className={styles.dot}>:-</p>
             <p className={styles.nameValue}>{task.name}</p>
           </div>
           {task.dueDate && (
             <div className={styles.task}>
-              <p className={styles.name}>Due Date :- </p>
+              <p className={styles.name}>Due Date</p>
+              <p className={styles.dot}>:-</p>
               <p>{dayjs(task.dueDate).format("DD/MM/YYYY")}</p>
             </div>
           )}
           <div className={styles.task}>
-            <p className={styles.name}>Task Status :- </p>
+            <p className={styles.name}>Task Status</p>
+            <p className={styles.dot}>:-</p>
             <p>{constants.STATUS[task.status]}</p>
           </div>
         </div>
