@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import { Box, FormControl, Modal, Typography } from "@mui/material";
+import { Box, Modal, Typography } from "@mui/material";
 import { Dayjs } from "dayjs";
 import { v4 as uuidv4 } from "uuid";
 
@@ -8,7 +8,10 @@ import { Close } from "@/Icons";
 import Input from "../Input/Input";
 import Button from "../Button/Button";
 import DatePicker from "../DatePicker/DatePicker";
-import taskStore from "@/Store/task.store";
+import { taskTypes } from "@/types";
+import { taskStore } from "@/store";
+
+import styles from "./addTaskForm.module.scss";
 
 interface Props {
   open: boolean;
@@ -18,7 +21,7 @@ interface Props {
 const AddTaskForm = (props: Props) => {
   const { open, handleClose } = props;
 
-  const { tasks, addNewTask } = taskStore();
+  const { addNewTask } = taskStore();
 
   const [task, setTask] = useState("");
   const [dueDate, setDueDate] = useState<Dayjs | null>(null);
@@ -31,7 +34,9 @@ const AddTaskForm = (props: Props) => {
     setTask(e.target.value);
   };
 
-  const handleClick = () => {
+  const handleAddTask = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
     if (!task) {
       setError("Please enter Task Name");
       return;
@@ -40,31 +45,24 @@ const AddTaskForm = (props: Props) => {
     const data = {
       name: task,
       id: uuidv4(),
-      status: "PENDING",
+      status: "ACTIVE" as taskTypes.Status,
       dueDate: dueDate,
     };
     addNewTask(data);
     handleClose();
     setTask("");
     setDueDate(null);
+  };
 
-    const taskToStore = [data, ...tasks];
-
-    localStorage.setItem("tasks", JSON.stringify(taskToStore));
+  const handleClosePopup = () => {
+    handleClose();
+    setError("");
+    setTask("");
+    setDueDate(null);
   };
 
   return (
-    <Modal
-      open={open}
-      onClose={() => {
-        handleClose();
-        setError("");
-        setTask("");
-        setDueDate(null);
-      }}
-      aria-labelledby="modal-modal-title"
-      aria-describedby="modal-modal-description"
-    >
+    <Modal open={open} onClose={handleClosePopup}>
       <Box
         sx={{
           position: "absolute",
@@ -78,26 +76,19 @@ const AddTaskForm = (props: Props) => {
           borderRadius: 2,
         }}
       >
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            marginBottom: "24px",
-          }}
-        >
+        <div className={styles.modalContent}>
           <Typography sx={{ fontSize: "24px" }}>New Task</Typography>
-          <div style={{ cursor: "pointer" }} onClick={handleClose}>
+          <div style={{ cursor: "pointer" }} onClick={handleClosePopup}>
             <Close />
           </div>
         </div>
 
-        <FormControl onSubmit={handleClick}>
+        <Box component="form" onSubmit={handleAddTask}>
           <Input
             onChange={onChange}
             value={task}
             error={error}
-            width={"330px"}
+            width={"335px"}
             label="Task Name"
           />
 
@@ -110,9 +101,15 @@ const AddTaskForm = (props: Props) => {
           /> */}
 
           <DatePicker date={dueDate} setDate={setDueDate} />
-
-          <Button text="Add Task" onClick={handleClick} width="330px" />
-        </FormControl>
+          <div className={styles.btn}>
+            <Button
+              type="submit"
+              text="Add Task"
+              onClick={handleAddTask}
+              width="335px"
+            />
+          </div>
+        </Box>
       </Box>
     </Modal>
   );

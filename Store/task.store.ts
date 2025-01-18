@@ -1,13 +1,16 @@
 import { create } from "zustand";
 
-import Task from "@/types/task.types";
+import { filter } from "lodash";
+
+import { taskTypes } from "@/types";
+import { constants } from "@/constant";
 
 interface TaskStore {
-  tasks: Array<Task>;
-  addNewTask: (data: Task) => void;
-  setTasks: (data: Array<Task>) => void;
+  tasks: Array<taskTypes.Task>;
+  addNewTask: (data: taskTypes.Task) => void;
+  setTasks: (data: Array<taskTypes.Task>) => void;
   deleteTask: (id: string) => void;
-  updateTask: (id: string, data: Partial<Task>) => void;
+  updateTask: (id: string, data: Partial<taskTypes.Task>) => void;
 }
 
 const taskStore = create<TaskStore>((set) => ({
@@ -21,17 +24,28 @@ const taskStore = create<TaskStore>((set) => ({
   },
 
   addNewTask: (data) => {
-    set((state) => ({
-      ...state,
-      tasks: [{ ...data }, ...state.tasks],
-    }));
+    set((state) => {
+      const updatedTasks = [data, ...state.tasks];
+      localStorage.setItem(
+        constants.LOCAL_STORAGE_KEYS.TASKS,
+        JSON.stringify(updatedTasks)
+      );
+
+      return {
+        ...state,
+        tasks: updatedTasks,
+      };
+    });
   },
 
   deleteTask: (id) => {
     set((state) => {
-      const updatedTasks = state.tasks.filter((task) => id !== task.id);
+      const updatedTasks = filter(state.tasks, (task) => id !== task.id);
 
-      localStorage.setItem("tasks", JSON.stringify(updatedTasks));
+      localStorage.setItem(
+        constants.LOCAL_STORAGE_KEYS.TASKS,
+        JSON.stringify(updatedTasks)
+      );
 
       return {
         ...state,
@@ -49,7 +63,10 @@ const taskStore = create<TaskStore>((set) => ({
         } else updatedTasks.push(state.tasks[i]);
       }
 
-      localStorage.setItem("tasks", JSON.stringify(updatedTasks));
+      localStorage.setItem(
+        constants.LOCAL_STORAGE_KEYS.TASKS,
+        JSON.stringify(updatedTasks)
+      );
 
       return {
         ...state,

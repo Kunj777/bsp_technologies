@@ -1,20 +1,19 @@
 import React from "react";
 
+import { isEmpty, map } from "lodash";
+
 import TaskItem from "../TaskItem/TaskItem";
-import { taskStore } from "@/Store";
+import { taskStore } from "@/store";
+
+import styles from "./taskList.module.scss";
 
 const TaskList = () => {
   const { tasks } = taskStore();
 
   return (
-    <div
-      style={{
-        display: "flex",
-        flexWrap: "wrap",
-      }}
-    >
-      {tasks.length > 0 ? (
-        tasks.map((item, id) => {
+    <div className={styles.wrapper}>
+      {!isEmpty(tasks) ? (
+        map(tasks, (item, id) => {
           return <TaskItem task={item} key={id} />;
         })
       ) : (

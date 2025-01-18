@@ -6,15 +6,18 @@ interface Props {
   text: string;
   onClick: () => void;
   width?: string;
+  type?: "button" | "submit" | "reset";
+  variant?: "text" | "contained" | "outlined";
 }
 
 const Button: React.FC<Props> = (props) => {
-  const { text, onClick, width } = props;
+  const { text, onClick, width, type, variant } = props;
 
   return (
     <div>
       <ButtonMui
-        variant="outlined"
+        type={type || "button"}
+        variant={variant || "contained"}
         onClick={onClick}
         sx={{
           // height: "40px",

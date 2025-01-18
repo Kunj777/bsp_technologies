@@ -1,23 +1,27 @@
 import React from "react";
 
-import Task from "@/types/task.types";
-import { taskStore } from "@/Store";
+import { Delete, Edit } from "@/Icons";
+import { taskTypes } from "@/types";
+import { constants } from "@/constant";
+import { popupStore, taskStore } from "@/store";
 
 import styles from "./TaskItem.module.scss";
-import { Delete, Edit } from "@/Icons";
 
 interface Props {
-  task: Task;
+  task: taskTypes.Task;
 }
 
 const TaskItem = (props: Props) => {
   const { task } = props;
 
-  const { deleteTask, updateTask } = taskStore();
+  const { updateTask } = taskStore();
+  const { setPopupData } = popupStore();
 
-  const handleDelete = () => {
-    //modal karna hai
-    deleteTask(task.id);
+  const openDeletPopup = () => {
+    setPopupData({
+      open: true,
+      id: task.id,
+    });
   };
 
   const handleUpdateTask = () => {
@@ -42,15 +46,17 @@ const TaskItem = (props: Props) => {
           )}
           <div className={styles.task}>
             <p className={styles.name}>Task Status :- </p>
-            <p>{task.status}</p>
+            <p>{constants.STATUS[task.status]}</p>
           </div>
         </div>
         <div className={styles.actions}>
-          <div onClick={handleEdit}>
-            <Edit />
-          </div>
-          <div onClick={handleDelete}>
-            <Delete />
+          <div className={styles.editDelete}>
+            <div onClick={handleEdit} className={styles.edit}>
+              <Edit />
+            </div>
+            <div onClick={openDeletPopup}>
+              <Delete />
+            </div>
           </div>
           <p onClick={handleUpdateTask}>mark as complted</p>
         </div>

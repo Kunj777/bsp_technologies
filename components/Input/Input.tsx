@@ -27,7 +27,6 @@ const Input: React.FC<Input> = (props) => {
         width: width,
         mb: "12px",
       }}
-      size="small"
     />
   );
 };

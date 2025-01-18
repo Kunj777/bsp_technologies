@@ -1,12 +1,15 @@
 import dayjs from "dayjs";
 
-interface Task {
+export interface Task {
   name: string;
   id: string;
-  status: STATUS;
+  status: Status;
   dueDate?: dayjs.Dayjs | null;
 }
 
-export type STATUS = "PENDING" | "COMPLETED";
+export interface Popup {
+  open: boolean;
+  id: string;
+}
 
-export default Task;
+export type Status = "ACTIVE" | "COMPLETED";

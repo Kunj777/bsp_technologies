@@ -30,6 +30,14 @@
     .actions {
       display: flex;
       justify-content: space-between;
+
+      .editDelete {
+        display: flex;
+      }
+
+      .edit {
+        margin-right: 20px;
+      }
     }
   }
 }
