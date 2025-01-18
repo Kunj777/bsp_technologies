@@ -6,6 +6,7 @@ import Button from "./Button/Button";
 import DatePicker from "./DatePicker/DatePicker";
 import DeletePopup from "./deletePopup/DeletePopup";
 import NillScreen from "./nillScreen/NillScreen";
+import Loader from "./loader/Loader";
 
 export {
   AddTaskForm,
@@ -16,4 +17,5 @@ export {
   DatePicker,
   DeletePopup,
   NillScreen,
+  Loader,
 };

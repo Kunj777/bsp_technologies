@@ -1,12 +1,14 @@
 import React from "react";
 
+import dayjs from "dayjs";
+
+import Button from "../Button/Button";
 import { Delete, Edit } from "@/Icons";
-import { taskTypes } from "@/types";
 import { constants } from "@/constant";
+import { taskTypes } from "@/types";
 import { popupStore, taskStore } from "@/store";
 
 import styles from "./TaskItem.module.scss";
-import Button from "../Button/Button";
 
 interface Props {
   task: taskTypes.Task;
@@ -46,12 +48,12 @@ const TaskItem = (props: Props) => {
         <div className={styles.cardInfo}>
           <div className={styles.task}>
             <p className={styles.name}>Task Name :- </p>
-            <p>{task.name}</p>
+            <p className={styles.nameValue}>{task.name}</p>
           </div>
           {task.dueDate && (
             <div className={styles.task}>
               <p className={styles.name}>Due Date :- </p>
-              <p>{new Date(task.dueDate).toLocaleDateString()}</p>
+              <p>{dayjs(task.dueDate).format("DD/MM/YYYY")}</p>
             </div>
           )}
           <div className={styles.task}>

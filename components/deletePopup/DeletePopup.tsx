@@ -36,8 +36,15 @@ const DeletePopup = () => {
           borderRadius: 2,
         }}
       >
-        <Typography sx={{ fontSize: "18px", mb: "20px", textAlign: "center" }}>
-          Are you sure, you want to delete this task?
+        <Typography
+          sx={{
+            fontSize: "18px",
+            mb: "20px",
+            textAlign: "center",
+            whiteSpace: "pre-wrap",
+          }}
+        >
+          {`Are you sure, \nyou want to delete this task?`}
         </Typography>
         <div className={styles.btns}>
           <Button

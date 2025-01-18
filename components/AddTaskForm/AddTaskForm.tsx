@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 
 import { Box, Modal, Typography } from "@mui/material";
-import { Dayjs } from "dayjs";
+import dayjs, { Dayjs } from "dayjs";
 import { v4 as uuidv4 } from "uuid";
-import { find } from "lodash";
+import { find, size } from "lodash";
 
 import { Close } from "@/Icons";
 import Input from "../Input/Input";
@@ -29,11 +29,14 @@ const AddTaskForm = () => {
     setTask(e.target.value);
   };
 
-  const handleAddTask = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
+  const handleAddTask = () => {
     if (!task) {
       setError("Please enter Task Name");
+      return;
+    }
+
+    if (size(task) > 56) {
+      setError("Max limit is 56 characters");
       return;
     }
 
@@ -75,7 +78,7 @@ const AddTaskForm = () => {
     if (!task) return;
 
     setTask(task.name);
-    // setDueDate(task.dueDate || null);
+    if (task.dueDate) setDueDate(dayjs(task.dueDate));
   }, [editPopupData]);
 
   return (
@@ -86,7 +89,7 @@ const AddTaskForm = () => {
           top: "50%",
           left: "50%",
           transform: "translate(-50%, -50%)",
-          width: 400,
+          width: 340,
           bgcolor: "white",
           boxShadow: 24,
           p: 4,
@@ -94,7 +97,9 @@ const AddTaskForm = () => {
         }}
       >
         <div className={styles.modalContent}>
-          <Typography sx={{ fontSize: "24px" }}>New Task</Typography>
+          <Typography sx={{ fontSize: "24px" }}>
+            {!editPopupData.id ? "New Task" : "Edit Task"}
+          </Typography>
           <div style={{ cursor: "pointer" }} onClick={handleClosePopup}>
             <Close />
           </div>
@@ -105,25 +110,17 @@ const AddTaskForm = () => {
             onChange={onChange}
             value={task}
             error={error}
-            width={"335px"}
+            width={"275px"}
             label="Task Name"
           />
-
-          {/* <Input
-            onChange={onChange}
-            value={task}
-            error={error}
-            width={"320px"}
-            label="Project Name"
-          /> */}
 
           <DatePicker date={dueDate} setDate={setDueDate} />
           <div className={styles.btn}>
             <Button
               type="submit"
-              text="Add Task"
+              text={!editPopupData.id ? "Add Task" : "Save"}
               onClick={handleAddTask}
-              width="335px"
+              width="275px"
             />
           </div>
         </Box>

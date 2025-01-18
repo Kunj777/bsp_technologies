@@ -15,8 +15,10 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Task Management Systme",
-  description: "You can list your all task here.",
+  title:
+    "Demo Task Management System – create, edit, delete, and manage tasks easily.",
+  description:
+    "Explore a demo Task Management System with features to create, edit, delete, and mark tasks as complete. A simple tool to practice task management basics.",
 };
 
 export default function RootLayout({

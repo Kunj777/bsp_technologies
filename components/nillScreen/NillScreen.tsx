@@ -1,7 +1,8 @@
 import React from "react";
 
-import styles from "./nilScreen.module.scss";
 import { Time } from "@/Icons";
+
+import styles from "./nilScreen.module.scss";
 
 interface Props {
   icon?: string;

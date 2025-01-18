@@ -3,10 +3,10 @@ import React from "react";
 import { isEmpty, map } from "lodash";
 
 import TaskItem from "../TaskItem/TaskItem";
+import NillScreen from "../nillScreen/NillScreen";
 import { taskStore } from "@/store";
 
 import styles from "./taskList.module.scss";
-import NillScreen from "../nillScreen/NillScreen";
 
 const TaskList = () => {
   const { tasks } = taskStore();

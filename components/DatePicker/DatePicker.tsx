@@ -1,10 +1,10 @@
 import React from "react";
 
+import dayjs from "dayjs";
 import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker as MuiDatePicker } from "@mui/x-date-pickers/DatePicker";
-import dayjs from "dayjs";
 
 interface Props {
   date: dayjs.Dayjs | null;
@@ -26,6 +26,10 @@ const DatePicker = (props: Props) => {
           label="Due Date"
           value={date}
           onChange={(newValue) => setDate(newValue)}
+          sx={{
+            width: "275px",
+          }}
+          minDate={dayjs(new Date())}
         />
       </DemoContainer>
     </LocalizationProvider>

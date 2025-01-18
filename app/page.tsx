@@ -1,7 +1,13 @@
 "use client";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
-import { AddTaskForm, Button, DeletePopup, TaskList } from "@/components";
+import {
+  AddTaskForm,
+  Button,
+  DeletePopup,
+  Loader,
+  TaskList,
+} from "@/components";
 import { constants } from "@/constant";
 import { popupStore, taskStore } from "@/store";
 
@@ -11,7 +17,7 @@ export default function Home() {
   const { setTasks } = taskStore();
   const { setEditPopupData } = popupStore();
 
-  // const [open, setOpen] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const handleAddNewTask = () => {
     setEditPopupData({
@@ -23,20 +29,30 @@ export default function Home() {
   useEffect(() => {
     const data = localStorage.getItem(constants.LOCAL_STORAGE_KEYS.TASKS);
 
-    if (!data) return;
+    if (!data) {
+      setLoading(false);
+      return;
+    }
     const tasks = JSON.parse(data);
 
     setTasks(tasks);
+    setLoading(false);
   }, []);
+
+  if (loading) {
+    return <Loader isLoading />;
+  }
 
   return (
     <div className={styles.page}>
       <div className={styles.header}>
         <p className={styles.heading}>Task Management System</p>
-        <Button text="Add New Task" onClick={handleAddNewTask} />
+        <Button text="Add Task" onClick={handleAddNewTask} />
       </div>
 
-      <TaskList />
+      <div>
+        <TaskList />
+      </div>
 
       <AddTaskForm />
       <DeletePopup />

@@ -1,6 +1,4 @@
 .TaskItem {
-  margin: 20px;
-
   .card {
     height: 200px;
     width: 300px;
@@ -20,9 +18,16 @@
       .task {
         display: flex;
         margin-bottom: 12px;
+        flex: 1;
 
         .name {
           margin-right: 4px;
+          width: 90px;
+        }
+
+        .nameValue {
+          max-width: 160px;
+          word-wrap: break-word;
         }
       }
     }

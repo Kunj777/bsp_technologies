@@ -18,7 +18,10 @@ const Button: React.FC<Props> = (props) => {
       <ButtonMui
         type={type || "button"}
         variant={variant || "contained"}
-        onClick={onClick}
+        onClick={(e) => {
+          e.preventDefault();
+          onClick();
+        }}
         sx={{
           // height: "40px",
           width: width,

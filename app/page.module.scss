@@ -3,8 +3,14 @@
   align-items: center;
   justify-content: space-between;
   padding: 12px 40px;
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid gray;
   margin-bottom: 20px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: #f7f9fa;
+  z-index: 1;
 
   .heading {
     font-size: 24px;
