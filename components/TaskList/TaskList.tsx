@@ -6,6 +6,7 @@ import TaskItem from "../TaskItem/TaskItem";
 import { taskStore } from "@/store";
 
 import styles from "./taskList.module.scss";
+import NillScreen from "../nillScreen/NillScreen";
 
 const TaskList = () => {
   const { tasks } = taskStore();
@@ -17,7 +18,7 @@ const TaskList = () => {
           return <TaskItem task={item} key={id} />;
         })
       ) : (
-        <div>No task</div>
+        <NillScreen title="You have not created any tasks yet." />
       )}
     </div>
   );

@@ -1,23 +1,23 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 import { AddTaskForm, Button, DeletePopup, TaskList } from "@/components";
 import { constants } from "@/constant";
-import { taskStore } from "@/store";
+import { popupStore, taskStore } from "@/store";
 
 import styles from "./page.module.scss";
 
 export default function Home() {
   const { setTasks } = taskStore();
+  const { setEditPopupData } = popupStore();
 
-  const [open, setOpen] = useState(false);
+  // const [open, setOpen] = useState(false);
 
   const handleAddNewTask = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
+    setEditPopupData({
+      open: true,
+      id: "",
+    });
   };
 
   useEffect(() => {
@@ -38,7 +38,7 @@ export default function Home() {
 
       <TaskList />
 
-      <AddTaskForm handleClose={handleClose} open={open} />
+      <AddTaskForm />
       <DeletePopup />
     </div>
   );

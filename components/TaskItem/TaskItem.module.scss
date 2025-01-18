@@ -30,6 +30,7 @@
     .actions {
       display: flex;
       justify-content: space-between;
+      align-items: center;
 
       .editDelete {
         display: flex;
@@ -37,6 +38,11 @@
 
       .edit {
         margin-right: 20px;
+        cursor: pointer;
+      }
+
+      .delete {
+        cursor: pointer;
       }
     }
   }

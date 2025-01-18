@@ -1,27 +1,22 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { Box, Modal, Typography } from "@mui/material";
 import { Dayjs } from "dayjs";
 import { v4 as uuidv4 } from "uuid";
+import { find } from "lodash";
 
 import { Close } from "@/Icons";
 import Input from "../Input/Input";
 import Button from "../Button/Button";
 import DatePicker from "../DatePicker/DatePicker";
 import { taskTypes } from "@/types";
-import { taskStore } from "@/store";
+import { popupStore, taskStore } from "@/store";
 
 import styles from "./addTaskForm.module.scss";
 
-interface Props {
-  open: boolean;
-  handleClose: () => void;
-}
-
-const AddTaskForm = (props: Props) => {
-  const { open, handleClose } = props;
-
-  const { addNewTask } = taskStore();
+const AddTaskForm = () => {
+  const { addNewTask, tasks, updateTask } = taskStore();
+  const { setEditPopupData, editPopupData } = popupStore();
 
   const [task, setTask] = useState("");
   const [dueDate, setDueDate] = useState<Dayjs | null>(null);
@@ -42,27 +37,49 @@ const AddTaskForm = (props: Props) => {
       return;
     }
 
-    const data = {
-      name: task,
-      id: uuidv4(),
-      status: "ACTIVE" as taskTypes.Status,
-      dueDate: dueDate,
-    };
-    addNewTask(data);
-    handleClose();
-    setTask("");
-    setDueDate(null);
+    if (!editPopupData.id) {
+      const data = {
+        name: task,
+        id: uuidv4(),
+        status: "ACTIVE" as taskTypes.Status,
+        dueDate: dueDate,
+      };
+      addNewTask(data);
+    } else {
+      const data = {
+        name: task,
+        dueDate: dueDate,
+      };
+
+      updateTask(editPopupData.id, data);
+    }
+
+    handleClosePopup();
   };
 
   const handleClosePopup = () => {
-    handleClose();
+    setEditPopupData({
+      open: false,
+      id: "",
+    });
     setError("");
     setTask("");
     setDueDate(null);
   };
 
+  useEffect(() => {
+    if (!editPopupData.id) return;
+
+    const task = find(tasks, (item) => editPopupData.id === item.id);
+
+    if (!task) return;
+
+    setTask(task.name);
+    // setDueDate(task.dueDate || null);
+  }, [editPopupData]);
+
   return (
-    <Modal open={open} onClose={handleClosePopup}>
+    <Modal open={editPopupData.open} onClose={handleClosePopup}>
       <Box
         sx={{
           position: "absolute",

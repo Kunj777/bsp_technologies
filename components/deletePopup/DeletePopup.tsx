@@ -9,20 +9,20 @@ import styles from "./deletePopup.module.scss";
 
 const DeletePopup = () => {
   const { deleteTask } = taskStore();
-  const { setPopupData, popupData } = popupStore();
+  const { setDeletePopupData, deletePopupData } = popupStore();
 
   const handleDelete = () => {
     //modal karna hai
-    deleteTask(popupData.id);
-    setPopupData({ open: false, id: "" });
+    deleteTask(deletePopupData.id);
+    setDeletePopupData({ open: false, id: "" });
   };
 
   const handleClosePopup = () => {
-    setPopupData({ open: false, id: "" });
+    setDeletePopupData({ open: false, id: "" });
   };
 
   return (
-    <Modal open={popupData.open} onClose={handleClosePopup}>
+    <Modal open={deletePopupData.open} onClose={handleClosePopup}>
       <Box
         sx={{
           position: "absolute",

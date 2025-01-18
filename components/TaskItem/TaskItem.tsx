@@ -6,6 +6,7 @@ import { constants } from "@/constant";
 import { popupStore, taskStore } from "@/store";
 
 import styles from "./TaskItem.module.scss";
+import Button from "../Button/Button";
 
 interface Props {
   task: taskTypes.Task;
@@ -15,20 +16,29 @@ const TaskItem = (props: Props) => {
   const { task } = props;
 
   const { updateTask } = taskStore();
-  const { setPopupData } = popupStore();
+  const { setDeletePopupData, setEditPopupData } = popupStore();
 
   const openDeletPopup = () => {
-    setPopupData({
+    setDeletePopupData({
       open: true,
       id: task.id,
     });
   };
 
   const handleUpdateTask = () => {
-    updateTask(task.id, { status: "COMPLETED" });
+    if (task.status === "ACTIVE") {
+      updateTask(task.id, { status: "COMPLETED" });
+    } else {
+      updateTask(task.id, { status: "ACTIVE" });
+    }
   };
 
-  const handleEdit = () => {};
+  const handleEdit = () => {
+    setEditPopupData({
+      open: true,
+      id: task.id,
+    });
+  };
 
   return (
     <div className={styles.TaskItem}>
@@ -54,11 +64,18 @@ const TaskItem = (props: Props) => {
             <div onClick={handleEdit} className={styles.edit}>
               <Edit />
             </div>
-            <div onClick={openDeletPopup}>
+            <div onClick={openDeletPopup} className={styles.delete}>
               <Delete />
             </div>
           </div>
-          <p onClick={handleUpdateTask}>mark as complted</p>
+          {/* <p onClick={handleUpdateTask}>mark as complted</p> */}
+          <Button
+            text={
+              task.status === "ACTIVE" ? "Mark As Completed" : "Mark As Active"
+            }
+            variant="text"
+            onClick={handleUpdateTask}
+          ></Button>
         </div>
       </div>
     </div>
