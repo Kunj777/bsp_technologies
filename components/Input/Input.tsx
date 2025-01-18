@@ -7,25 +7,27 @@ interface Input {
     value: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
   ) => void | React.Dispatch<React.SetStateAction<string>>;
   value: string;
-  error: string;
+  error?: string;
+  width?: string;
+  label?: string;
 }
 
 const Input: React.FC<Input> = (props) => {
-  const { onChange, value, error } = props;
+  const { onChange, value, error, width, label } = props;
 
   return (
     <TextField
-      label="Task"
+      label={label}
       variant="outlined"
       onChange={onChange}
       value={value}
       error={error ? true : false}
       helperText={error}
       sx={{
-        // height: "32px",
-        width: "300px",
-        mb: "20px",
+        width: width,
+        mb: "12px",
       }}
+      size="small"
     />
   );
 };

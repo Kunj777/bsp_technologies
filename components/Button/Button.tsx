@@ -5,10 +5,11 @@ import { Button as ButtonMui } from "@mui/material";
 interface Props {
   text: string;
   onClick: () => void;
+  width?: string;
 }
 
 const Button: React.FC<Props> = (props) => {
-  const { text, onClick } = props;
+  const { text, onClick, width } = props;
 
   return (
     <div>
@@ -16,8 +17,8 @@ const Button: React.FC<Props> = (props) => {
         variant="outlined"
         onClick={onClick}
         sx={{
-          height: "40px",
-          width: "150px",
+          // height: "40px",
+          width: width,
         }}
       >
         {text}

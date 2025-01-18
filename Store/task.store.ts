@@ -31,6 +31,8 @@ const taskStore = create<TaskStore>((set) => ({
     set((state) => {
       const updatedTasks = state.tasks.filter((task) => id !== task.id);
 
+      localStorage.setItem("tasks", JSON.stringify(updatedTasks));
+
       return {
         ...state,
         tasks: updatedTasks,
@@ -46,6 +48,8 @@ const taskStore = create<TaskStore>((set) => ({
           updatedTasks.push({ ...state.tasks[i], ...data });
         } else updatedTasks.push(state.tasks[i]);
       }
+
+      localStorage.setItem("tasks", JSON.stringify(updatedTasks));
 
       return {
         ...state,

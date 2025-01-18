@@ -7,10 +7,19 @@ const TaskList = () => {
   const { tasks } = taskStore();
 
   return (
-    <div>
-      {tasks.map((item, id) => {
-        return <TaskItem task={item} key={id} />;
-      })}
+    <div
+      style={{
+        display: "flex",
+        flexWrap: "wrap",
+      }}
+    >
+      {tasks.length > 0 ? (
+        tasks.map((item, id) => {
+          return <TaskItem task={item} key={id} />;
+        })
+      ) : (
+        <div>No task</div>
+      )}
     </div>
   );
 };

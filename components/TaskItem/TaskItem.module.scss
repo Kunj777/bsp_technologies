@@ -1,0 +1,35 @@
+.TaskItem {
+  margin: 20px;
+
+  .card {
+    height: 200px;
+    width: 300px;
+
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    .cardInfo {
+      .task {
+        display: flex;
+        margin-bottom: 12px;
+
+        .name {
+          margin-right: 4px;
+        }
+      }
+    }
+
+    .actions {
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+}
