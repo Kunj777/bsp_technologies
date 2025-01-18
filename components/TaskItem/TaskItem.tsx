@@ -6,7 +6,7 @@ import Button from "../Button/Button";
 import { Delete, Edit } from "@/Icons";
 import { constants } from "@/constant";
 import { taskTypes } from "@/types";
-import { popupStore, taskStore } from "@/store";
+import { popupStore, taskStore } from "@/zustand";
 
 import styles from "./TaskItem.module.scss";
 

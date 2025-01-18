@@ -10,7 +10,7 @@ import Input from "../Input/Input";
 import Button from "../Button/Button";
 import DatePicker from "../DatePicker/DatePicker";
 import { taskTypes } from "@/types";
-import { popupStore, taskStore } from "@/store";
+import { popupStore, taskStore } from "@/zustand";
 
 import styles from "./addTaskForm.module.scss";
 

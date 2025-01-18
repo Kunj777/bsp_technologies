@@ -3,7 +3,7 @@ import React from "react";
 import { Box, Modal, Typography } from "@mui/material";
 
 import Button from "../Button/Button";
-import { popupStore, taskStore } from "@/store";
+import { popupStore, taskStore } from "@/zustand";
 
 import styles from "./deletePopup.module.scss";
 

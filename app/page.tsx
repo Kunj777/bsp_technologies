@@ -9,7 +9,7 @@ import {
   TaskList,
 } from "@/components";
 import { constants } from "@/constant";
-import { popupStore, taskStore } from "@/store";
+import { popupStore, taskStore } from "@/zustand";
 
 import styles from "./page.module.scss";
 
